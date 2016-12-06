@@ -1,0 +1,94 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+
+Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'scrooloose/syntastic'
+
+Plugin 'godlygeek/tabular'
+" Plugin 'plasticboy/vim-markdown'
+
+Plugin 'lervag/vimtex'
+Plugin 'Valloric/YouCompleteMe'
+
+Bundle 'cespare/vim-toml'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+" colorscheme solarized
+" colorscheme readable
+" set background=dark
+" colorscheme solarized
+
+hi Comment guifg=#ffffff guibg=#000000 guisp=NONE gui=NONE ctermfg=6 ctermbg=None cterm=None
+hi SpellBad   ctermfg=1 ctermbg=none cterm=underline guifg=#ff0000 guibg=NONE gui=underline
+hi SpellCap   ctermfg=5 ctermbg=none cterm=underline guifg=#ff00ff guibg=NONE gui=underline
+hi SpellLocal ctermfg=3 ctermbg=none cterm=underline guifg=#ffff00 guibg=NONE gui=underline
+hi SpellRare  ctermfg=6 ctermbg=none cterm=underline guifg=#00ffff guibg=NONE gui=underline
+
+
+" custom tex compilation command
+command T !~/.vim/build_tex.py %:t
+
+set number
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+
+set laststatus=2
+set clipboard=unnamed
+
+set incsearch
+
+
+syntax on
+
+
+" highlight current line
+set cursorline
+hi CursorLine cterm=None ctermbg=7
+
+
+" spell checking
+setlocal spell spelllang=en_us
+
+
+" disable ycm for python  (in favor of jedi)
+let g:ycm_filetype_blacklist = {'python': 1}
+
+" let g:ycm_python_binary_path = '/usr/bin/python3'
+" let g:ycm_autoclose_preview_window_after_completion=1
+" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" let g:ycm_key_invoke_completion = '<C-n>'
+
+
+" syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_flake8_args = '--ignore=D203'
+
+" capital W
+command W w
