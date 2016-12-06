@@ -1,0 +1,49 @@
+! color configuration
+*background: #000010
+*foreground: #ffffff
+
+
+! file path:
+*color0:     #FFBD59
+! rot
+*color1:     #FF999A
+! command (good):
+*color2:     #5AE743
+*color3:     #FFED77
+! username:
+*color4:     #6400FF
+*color5:     #FF86F5
+*color6:     #86F0FF
+*color7:     #828282
+! suggestion (light gray):
+*color8:     #B7B7B7
+*color9:     #FF5F69
+*color10:    #00FF22
+*color11:    #F9FF4C
+*color12:    #000000
+*color13:    #77B4FF
+*color14:    #69BFFF
+*color15:    #000000
+
+
+! additional configuration
+
+URxvt*scrollBar: false
+URxvt*termName: rxvt-unicode-256color
+! rxvt-unicode-256color
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+*eightBitInput: false
+*cursorBlink: true
+*faceName: Terminus:style=Regular:size=12
+URxvt.font: xft:Terminus:pixelsize=18:antialias=true:hinting=true
+URxvt.intensityStyles: false
+xterm*dynamicColors: true
+URxvt.dynamicColors: on
+
+URxvt.perl-ext-common: default,clipboard
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
