@@ -4,16 +4,16 @@
 
 
 ! file path:
-*color0:     #FFBD59
+*color0:     #FFC976
 ! rot
 *color1:     #FF999A
 ! command (good):
-*color2:     #5AE743
+*color2:     #19AF00
 *color3:     #FFED77
 ! username:
 *color4:     #6400FF
 *color5:     #FF86F5
-*color6:     #86F0FF
+*color6:     #196c77
 *color7:     #828282
 ! suggestion (light gray):
 *color8:     #B7B7B7
@@ -37,7 +37,7 @@ URxvt.iso14755_52: false
 *eightBitInput: false
 *cursorBlink: true
 *faceName: Terminus:style=Regular:size=12
-URxvt.font: xft:Terminus:pixelsize=18:antialias=true:hinting=true
+URxvt.font: xft:Terminus:pixelsize=14:antialias=true:hinting=true
 URxvt.intensityStyles: false
 xterm*dynamicColors: true
 URxvt.dynamicColors: on
