@@ -1,0 +1,15 @@
+#!/bin/sh
+# Merge updated colors into local Xresources
+
+XRESOURCES="$HOME/.Xresources"
+NEW_URL="https://raw.githubusercontent.com/wichmannpas/dotfiles/master/x/Xresources"
+
+
+# remove all colors currently in Xresources
+sed -ri "s/^\\*(color|background|foreground).*$//g" $XRESOURCES
+
+# add colors to xresources again
+curl $NEW_URL | grep -E "^\\*(color|background|foreground).*$" >> $XRESOURCES
+
+# update xrdb
+xrdb $XRESOURCES
