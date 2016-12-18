@@ -4,7 +4,7 @@
 
 
 ! file path:
-*color0:     #B34F34
+*color0:     #FFFBB1
 ! rot
 *color1:     #FF999A
 ! command (good):
@@ -21,6 +21,7 @@
 *color10:    #00FF22
 *color11:    #F9FF4C
 *color12:    #000000
+! vim suggestion background
 *color13:    #77B4FF
 *color14:    #69BFFF
 *color15:    #000000
