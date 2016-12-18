@@ -6,7 +6,7 @@
 ! file path:
 *color0:     #FFFBB1
 ! rot
-*color1:     #FF999A
+*color1:     #FFBEBF
 ! command (good):
 *color2:     #19AF00
 *color3:     #FFED77
@@ -14,7 +14,8 @@
 *color4:     #6400FF
 *color5:     #FF86F5
 *color6:     #196c77
-*color7:     #828282
+! i.e. vim highlighted line
+*color7:     #575252
 ! suggestion (light gray):
 *color8:     #B7B7B7
 *color9:     #FF5F69
