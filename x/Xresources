@@ -9,7 +9,8 @@
 *color1:     #FFBEBF
 ! command (good):
 *color2:     #19AF00
-*color3:     #FFED77
+! i.e. tmux command line background:
+*color3:     #574D10
 ! username:
 *color4:     #6400FF
 *color5:     #FF86F5
@@ -22,7 +23,7 @@
 *color10:    #00FF22
 *color11:    #F9FF4C
 *color12:    #000000
-! vim suggestion background
+! vim suggestion background:
 *color13:    #77B4FF
 *color14:    #69BFFF
 *color15:    #000000
