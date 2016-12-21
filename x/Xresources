@@ -10,7 +10,7 @@
 ! command (good):
 *color2:     #19AF00
 ! i.e. tmux command line background:
-*color3:     #574D10
+*color3:     #FFED77
 ! username:
 *color4:     #6400FF
 *color5:     #FF86F5
