@@ -8,13 +8,20 @@ xrandr -d :0 --output DP-2-1 --off --output DP-2-2 --off
 grep feh ~/.i3/config | sed "s/exec //" | sh
 
 killall -9 play
-killall -9 pulseaudio
-pulseaudio -D
+pacmd unload-module module-udev-detect
+pacmd unload-module module-alsa-card
+pacmd load-module module-udev-detect
 
 $HOME/get_sinks 'Analog' > ~/.i3/audio_device
 pactl set-default-sink `cat $HOME/.i3/audio_device`
 pactl set-sink-mute `cat $HOME/.i3/audio_device` 1
 pactl set-sink-volume `cat $HOME/.i3/audio_device` 0
+
+# move all existing sink inputs to new device
+for input in $(pactl list sink-inputs | grep "Sink Input" | grep -oE "[0-9]+");
+do
+  pactl move-sink-input $input `cat $HOME/.i3/audio_device`
+done
 
 xmodmap ~/.Xmodmap
 

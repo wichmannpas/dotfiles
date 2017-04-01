@@ -12,26 +12,33 @@ sudo /usr/local/sbin/dock_on
 
 
 killall -9 play
-killall -9 pulseaudio
 
 
 # things which take time to recognize devices ...
 sleep 2.5
 
-pulseaudio -D
+pacmd unload-module module-udev-detect
+pacmd unload-module module-alsa-card
+pacmd load-module module-udev-detect
 
 # turn off and on 7.1 profile
 pactl set-card-profile alsa_card.pci-0000_00_03.0 off
-wanted_profile=$(pactl list cards | grep output:hdmi-surround71 | grep "available: yes" | grep -v active | tr -d '\t' | cut -d ' ' -f1 | rev | cut -c2- | rev)
+wanted_profile=$(pactl list cards | grep output:hdmi-surround71 | grep "available: yes" | grep -v active | tail -n 1 | tr -d '\t' | cut -d ' ' -f1 | rev | cut -c2- | rev)
 pactl set-card-profile alsa_card.pci-0000_00_03.0 $wanted_profile
-
-# always play non-hearable sound to prevent av decoder to turn off
-play -n -c1 synth sin gain -100 > /dev/null 2>&1 &
 
 $HOME/get_sinks 'Digital' > ~/.i3/audio_device
 pactl set-default-sink `cat $HOME/.i3/audio_device`
 pactl set-sink-mute `cat $HOME/.i3/audio_device` 0
 pactl set-sink-volume `cat $HOME/.i3/audio_device` 100%
+
+# move all existing sink inputs to new device
+for input in $(pactl list sink-inputs | grep "Sink Input" | grep -oE "[0-9]+");
+do
+  pactl move-sink-input $input `cat $HOME/.i3/audio_device`
+done
+
+# always play non-hearable sound to prevent av decoder to turn off
+play -n -c1 synth sin gain -100 > /dev/null 2>&1 &
 
 numlockx on
 setxkbmap us,de -option grp:switch
