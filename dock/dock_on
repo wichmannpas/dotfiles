@@ -1,4 +1,12 @@
 #!/bin/sh
+
+# do not run when no x session is active
+if ! (w | grep wichmannpas | grep xinit > /dev/null);
+then
+  echo Not running, no x session active
+  exit 0
+fi;
+
 export $(cat ~/.env | xargs)
 
 xrandr -d :0 --dpi 80 --output eDP-1 --off --output DP-2-2 --mode 1920x1200 --primary --output DP-2-1 --auto --same-as DP-2-2 --panning "1920x1200*"
@@ -15,7 +23,7 @@ killall -9 play
 
 
 # things which take time to recognize devices ...
-sleep 2.5
+#sleep 2.5
 
 pacmd unload-module module-udev-detect
 pacmd unload-module module-alsa-card
@@ -40,16 +48,8 @@ done
 # always play non-hearable sound to prevent av decoder to turn off
 play -n -c1 synth sin gain -100 > /dev/null 2>&1 &
 
-numlockx on
-setxkbmap us,de -option grp:switch
-xmodmap $HOME/.Xmodmap
+sleep 15 && numlockx on && setxkbmap us,de -option grp:switch &&  xmodmap $HOME/.Xmodmap &
 
 xset -b
 xset s off
 xset -dpms
-
-# sleep another two minutes for additional keyboard devices
-sleep 2m
-numlockx on
-setxkbmap us,de -option grp:switch
-xmodmap $HOME/.Xmodmap

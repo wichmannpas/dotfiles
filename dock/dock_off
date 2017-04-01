@@ -1,4 +1,12 @@
 #!/bin/sh
+
+# do not run when no x session is active
+if ! (w | grep wichmannpas | grep xinit > /dev/null);
+then
+  echo Not running, no x session active
+  exit 0
+fi;
+
 export $(cat ~/.env | xargs)
 
 xrandr -d :0 --output eDP-1 --auto --primary
