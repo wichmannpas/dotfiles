@@ -50,7 +50,10 @@ setxkbmap us,de -option grp:switch
 xmodmap $HOME/.Xmodmap
 
 # temporary workaround to fix udev issues
-kill -USR1 `cat /tmp/kbd_daemon`
+if [ "$1" != "no" ];
+then
+  kill -USR1 `cat /tmp/dock_daemon`
+fi
 
 xset -b
 xset s off

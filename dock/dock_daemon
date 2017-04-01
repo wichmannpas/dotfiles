@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+import os
+import signal
+
+from time import sleep
+
+
+with open('/tmp/dock_daemon', 'w') as f:
+    f.write(str(os.getpid()))
+
+
+def handle_dock_on(a, b):
+    sleep(2)
+    os.system('$HOME/dock_on no')
+
+
+def handle_dock_off(a, b):
+    sleep(2)
+    os.system('$HOME/dock_off no')
+
+
+signal.signal(signal.SIGUSR1, handle_dock_on)
+signal.signal(signal.SIGUSR2, handle_dock_off)
+
+sleep(25920000)

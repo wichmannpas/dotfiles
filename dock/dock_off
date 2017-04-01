@@ -9,8 +9,7 @@ fi;
 
 export $(cat ~/.env | xargs)
 
-xrandr -d :0 --output eDP-1 --auto --primary
-xrandr -d :0 --output DP-2-1 --off --output DP-2-2 --off
+xrandr -d :0 --output DP-2-1 --off --output DP-2-2 --off --output eDP-1 --auto --primary
 
 # re-scale background
 grep feh ~/.i3/config | sed "s/exec //" | sh
@@ -34,5 +33,11 @@ done
 xmodmap ~/.Xmodmap
 
 sudo /usr/local/sbin/dock_off
+
+# temporary workaround to fix udev issues
+if [ "$1" != "no" ];
+then
+  kill -USR2 `cat /tmp/dock_daemon`
+fi
 
 xset -b
