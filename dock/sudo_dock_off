@@ -1,0 +1,6 @@
+#!/bin/sh
+netctl stop ethernet-static &
+systemctl start netctl-auto@wlp3s0.service
+
+# enable powertop usb tunings
+powertop --auto-tune

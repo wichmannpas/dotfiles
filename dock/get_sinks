@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import re
+import subprocess
+import sys
+
+
+def get_sinks():
+    sinks = subprocess.check_output(['pactl', 'list', 'sinks'])
+    sinks = re.findall(r'Sink #(\d+).*?Description: ([A-Za-z -]+)', sinks.decode(), re.DOTALL)
+    return sinks
+
+def get_sink(sink_search: str):
+    """Get a sink."""
+    for sink in get_sinks():
+        if sink_search in sink[1]:
+            return sink
+
+if __name__ == '__main__':
+    print(get_sink(sys.argv[1])[0])
