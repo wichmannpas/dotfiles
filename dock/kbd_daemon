@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import os
+import signal
+
+from time import sleep
+
+with open('/tmp/kbd_daemon', 'w') as f:
+    f.write(str(os.getpid()))
+
+def handle_kbd_change(a, b):
+    os.system('numlockx on')
+    os.system('setxkbmap us,de -option grp:switch')
+    os.system('xmodmap $HOME/.Xmodmap')
+    sleep(5)
+    os.system('numlockx on')
+    os.system('setxkbmap us,de -option grp:switch')
+    os.system('xmodmap $HOME/.Xmodmap')
+
+
+signal.signal(signal.SIGUSR1, handle_kbd_change)
+
+sleep(25920000.000000000)

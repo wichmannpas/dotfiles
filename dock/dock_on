@@ -5,7 +5,7 @@ if ! (w | grep wichmannpas | grep xinit > /dev/null);
 then
   echo Not running, no x session active
   exit 0
-fi;
+fi
 
 export $(cat ~/.env | xargs)
 
@@ -16,7 +16,7 @@ xrandr -d :0 --dpi 80 --output eDP-1 --off --output DP-2-2 --mode 1920x1200 --pr
 # re-scale background
 grep feh ~/.i3/config | sed "s/exec //" | sh
 
-sudo /usr/local/sbin/dock_on
+sudo /usr/local/sbin/dock_on &
 
 
 killall -9 play
@@ -48,7 +48,9 @@ play -n -c1 synth sin gain -100 > /dev/null 2>&1 &
 numlockx on
 setxkbmap us,de -option grp:switch
 xmodmap $HOME/.Xmodmap
-(sleep 45 && numlockx on && setxkbmap us,de -option grp:switch && xmodmap $HOME/.Xmodmap) &
+
+# temporary workaround to fix udev issues
+kill -USR1 `cat /tmp/kbd_daemon`
 
 xset -b
 xset s off
