@@ -47,3 +47,9 @@ xmodmap $HOME/.Xmodmap
 xset -b
 xset s off
 xset -dpms
+
+# sleep another two minutes for additional keyboard devices
+sleep 2m
+numlockx on
+setxkbmap us,de -option grp:switch
+xmodmap $HOME/.Xmodmap
