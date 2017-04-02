@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", ACTION=="add|remove", ENV{ID_VENDOR_ID}=="17ef", ENV{ID_MODEL_ID}=="100f", ENV{DEVTYPE}=="usb_device" RUN+="/usr/local/sbin/thinkpad-dock"

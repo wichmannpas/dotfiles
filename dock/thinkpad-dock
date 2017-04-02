@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# only execute when state is different than previously
+previous_state=`cat /tmp/dock_last_state || echo none`
+[ "$previous_state" != "$ACTION" ] || exit 1
+
+echo $ACTION > /tmp/dock_last_state
+touch /tmp/dock_change
+
+if [[ "$ACTION" == "add" ]]; then
+  logger -t DOCKING "Detected condition: docked"
+  touch /tmp/last_dock_to_external
+  su wichmannpas -c /home/wichmannpas/dock_on
+  exit 0
+elif [[ "$ACTION" == "remove" ]]; then
+  logger -t DOCKING "Detected condition: un-docked"
+  touch /tmp/last_dock_to_local
+  su wichmannpas -c /home/wichmannpas/dock_off
+  exit 0
+else
+  logger -t DOCKING "Detected condition: unknown"
+  echo Please set env var \$ACTION to 'add' or 'remove'
+  exit 1
+fi
