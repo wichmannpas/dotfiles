@@ -45,6 +45,10 @@ done
 # always play non-hearable sound to prevent av decoder to turn off
 play -n -c1 synth sin gain -100 > /dev/null 2>&1 &
 
+if [ "$1" = "no" ];
+then
+  sleep 5
+fi
 numlockx on
 setxkbmap us,de -option grp:switch
 xmodmap $HOME/.Xmodmap
