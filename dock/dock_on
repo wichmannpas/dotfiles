@@ -42,11 +42,11 @@ do
   pactl move-sink-input $input `cat $HOME/.i3/audio_device`
 done
 
-# always play non-hearable sound to prevent av decoder to turn off
-play -n -c1 synth sin gain -100 > /dev/null 2>&1 &
-
 if [ "$1" = "no" ];
 then
+  # always play non-hearable sound to prevent av decoder to turn off
+  play -n -c1 synth sin gain -100 > /dev/null 2>&1 &
+
   sleep 5
 fi
 numlockx on
