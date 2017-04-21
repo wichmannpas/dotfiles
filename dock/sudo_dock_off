@@ -1,6 +1,9 @@
 #!/bin/sh
 netctl stop ethernet-static &
+ip link set enp0s25 down || true &
 systemctl start netctl-auto@wlp3s0.service
+
+resolvconf -u
 
 # enable powertop usb tunings
 powertop --auto-tune

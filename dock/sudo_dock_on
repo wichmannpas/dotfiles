@@ -7,4 +7,4 @@ netctl start ethernet-static
 # disable powertop usb tunings
 echo 'on' > /sys/bus/usb/devices/*/power/control
 
-echo nameserver 192.168.2.2 > /etc/resolv.conf
+resolvconf -u
