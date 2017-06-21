@@ -9,6 +9,8 @@ fi
 
 export $(cat ~/.env | xargs)
 
+# Turn screen on if its currently turned off
+xset dpms force on
 xrandr -d :0 --dpi 80 --output eDP-1 --off --output DP-2-2 --mode 1920x1200 --primary --output DP-2-1 --auto --same-as DP-2-2 --panning "1920x1200*"
 #xrandr -d :0 --output DP-2-2 --primary
 #xrandr -d :0 --dpi 80
@@ -59,6 +61,7 @@ then
   kill -USR1 `cat /tmp/dock_daemon`
 fi
 
+# Do not turn screen off at all
 xset -b
 xset s off
 xset -dpms
