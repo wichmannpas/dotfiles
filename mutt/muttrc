@@ -1,0 +1,79 @@
+set ssl_starttls=yes
+set ssl_force_tls=yes
+
+# IMAP: offlineimap
+set mbox_type=Maildir
+set folder = ~/Mail
+set spoolfile = "~/Mail/primarymailbox/INBOX"
+source ~/.mutt/mailboxes
+set record = +primarymailbox/INBOX,+primarymailbox/Sent
+set postponed = +primarymailbox/Drafts
+set include = yes
+
+macro index c "<change-folder>?" "open a different folder"
+macro pager c "<change-folder>?" "open a different folder"
+
+set move=no
+set from="Pascal Wichmann <foo@bar.baz>"
+set copy=yes
+set envelope_from=yes
+set sort=threads
+set sort_aux = last-date-received
+set mime_forward=ask-no
+set mime_forward_rest=yes
+set markers=no
+set timeout=15
+
+ignore *
+unignore date from subject to cc reply-to
+
+
+source /usr/share/doc/mutt/samples/gpg.rc
+set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to FE027C4E99F43AD273F21C43EBE6086B7E16FF36 -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to FE027C4E99F43AD273F21C43EBE6086B7E16FF36 -- -r %r -- %f"
+set pgp_use_gpg_agent = yes
+set pgp_sign_as = FE027C4E99F43AD273F21C43EBE6086B7E16FF36
+set pgp_timeout = 3600
+set crypt_autosign = yes
+set crypt_replyencrypt = yes
+set crypt_autoencrypt = yes
+
+# accounts
+macro compose <esc>1 '<esc>f^UPascal Wichmann <firstmail@foobar><enter>'
+macro compose <esc>2 '<esc>f^UPascal Wichmann <secondmail@foobar><enter>'
+macro compose <esc>3 '<esc>f^UPascal Wichmann <thirdmail@foobar><enter>'
+
+send2-hook '~f ^firstmail@foobar$' "set smtp_url='smtp://foo@firsthost:587/'"
+send2-hook '~f ^firstmail@foobar$' "set smtp_pass = `pass firsthost/foo`"
+send2-hook '~f ^secondmail@foobar$' "set smtp_url='smtp://foo@secondhost:587/'"
+send2-hook '~f ^secondmail@foobar$' "set smtp_pass = `pass secondhost/foo`"
+send2-hook '~f ^thirdmail@foobar$' "set smtp_url='smtp://foo@thirdhost:587/'"
+send2-hook '~f ^thirdmail@foobar$' "set smtp_pass = `pass thirdhost/foo`"
+
+# s.f. https://github.com/octol/vombatidae-mutt
+source ~/.mutt/vombatidae.mutt
+
+# contacts
+set query_command= "khard email --parsable %s"
+bind editor <Tab> complete-query
+bind editor ^T    complete
+
+
+# html emails
+auto_view text/html                                      # view html automatically
+alternative_order text/plain text/enriched text/html     # save html for last
+
+# date
+set index_format="%4C %-15.15L %Z %?M?<& ? %s%> (%?l?%4l&%4c?) %[%H:%M:%S %Y/%m/%d]"
+
+set save_empty = yes
+
+
+# Quick folder switching
+bind index g noop 
+macro index gi "<change-folder> +primarymailbox/INBOX<tab><enter>" "Go to inbox"
+macro index gs "<change-folder> +primarymailbox/Sent<tab><enter>" "Go to sent mail"
+macro index ga "<change-folder> +secondmailbox/INBOX<tab><enter>" "Go to alert inbox"
+
+# collapse all threads by default
+folder-hook . "push <collapse-all>"

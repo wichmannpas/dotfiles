@@ -1,0 +1,61 @@
+[general]
+# List of accounts to be synced, separated by a comma.
+accounts = primarymailbox,secondarymailbox
+# Path to file with arbitrary Python code to be loaded
+pythonfile = ~/.offlineimap.py
+
+[Account primarymailbox]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = primarymailbox-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = primarymailbox-remote
+autorefresh = 30
+
+[Repository primarymailbox-local]
+# OfflineIMAP supports Maildir, GmailMaildir, and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/Mail/primarymailbox
+
+[Repository primarymailbox-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = firsthost
+remoteuser = "foo@firsthost"
+remotepasseval = get_pass('primarymailbox')
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+starttls = yes
+auth_mechanisms = LOGIN
+idlefolders = ['INBOX']
+
+[Account secondarymailbox]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = secondarymailbox-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = secondarymailbox-remote
+autorefresh = 30
+
+[Repository secondarymailbox-local]
+# OfflineIMAP supports Maildir, GmailMaildir, and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/Mail/secondarymailbox
+
+[Repository secondarymailbox-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = secondhost
+remoteuser = "bar@baz"
+remotepasseval = get_pass('secondarymailbox')
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+starttls = yes
+auth_mechanisms = LOGIN
+idlefolders = ['INBOX']
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"

@@ -1,0 +1,4 @@
+text/html; lynx -dump -display_charset=UTF-8 -nomargins %s; copiousoutput; nametemplate=%s.html
+application/zip; unzip -l %s; copiousoutput; nametemplate=%s.zip
+application/pdf; evince %s
+auto_view text/html text/enriched application/x-gunzip application/postscript image/gif application/x-tar-gz application/zip application/pdf
